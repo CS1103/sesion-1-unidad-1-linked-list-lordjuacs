@@ -1,6 +1,4 @@
-#include <iostream>
-#include <cassert>
-#include <string>
+
 #include "linked_list.h"
 using namespace std;
 
@@ -97,7 +95,7 @@ int main() {
     cout << "copy 100% new <<linked_list_t(const linked_list_t& other)>> = :)" << endl;
 
     //__________________________________________________
-    //test copy 100% new list constructor
+    //test copy already existing list constructor
     utec::linked_list_t l4;
     l4.push_back(50);
     l4.push_back(60);
@@ -110,9 +108,43 @@ int main() {
     assert(l5.size() == 2);
     assert(result6 == "50 60 ");
     cout << "copy already existing <<linked_list_t&operator=(const linked_list_t& other)>> = :)" << endl;
+    //__________________________________________________
+    //test move 100% new list constructor
+    utec::linked_list_t l6;
+    l6.push_back(3);
+    l6.push_back(4);
+    l6.push_back(5);
 
+    utec::linked_list_t l7(l6);
+    string result7;
+    for(int i = 0; i < l7.size(); ++i)
+        result7 += to_string(l7.item(i)) + " ";
+    assert(l7.size() == 3);
+    assert(result7 == "3 4 5 ");
+    cout << "move 100% new <<linked_list_t(linked_list_t&& other) noexcept>> = :)" << endl;
+    //__________________________________________________
+    //test move already existing list constructor
+    utec::linked_list_t l8;
+    l8.push_back(50);
+    l8.push_back(60);
+    utec::linked_list_t l9;
+    l9.push_back(1);
+    l9 = l8;
+    string result8;
+    for(int i = 0; i < l9.size(); ++i)
+        result8 += to_string(l9.item(i)) + " ";
+    assert(l9.size() == 2);
+    assert(result8 == "50 60 ");
+    cout << "move already existing <<llinked_list_t&operator=(linked_list_t&& other) noexcept>> = :)" << endl;
 
     cout << endl << "Success!" << endl;
+
+
+
+
+    for(int i = 0; i < 10; ++i)
+        cout << endl;
+    cout << "By: Joaquin Ramirez" << endl;
 
 
     return 0;

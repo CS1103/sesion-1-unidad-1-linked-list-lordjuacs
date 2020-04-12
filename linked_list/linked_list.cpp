@@ -3,7 +3,9 @@
 //
 
 #include "linked_list.h"
+using namespace std;
 #include <utility>
+
 utec::first::linked_list_t::linked_list_t(const utec::linked_list_t &other) {
     if(other.size() == 0) {
         head_ = tail_ = nullptr;
@@ -20,9 +22,6 @@ utec::first::linked_list_t::linked_list_t(const utec::linked_list_t &other) {
             this->push_back(current->value_);
         }
     }
-
-
-
 }
 
 utec::linked_list_t &utec::first::linked_list_t::operator=(const utec::linked_list_t &other) {
@@ -51,9 +50,34 @@ utec::linked_list_t &utec::first::linked_list_t::operator=(const utec::linked_li
 
 utec::first::linked_list_t::linked_list_t(utec::linked_list_t &&other) noexcept {
     //to do
+    size_ = move(other.size());
+    head_ = move(other.head_);
+    tail_ = move(other.tail_);
+    other.size_ = 0;
+    other.head_ = nullptr;
+    other.tail_ = nullptr;
+
+
 }
 
 utec::linked_list_t &utec::first::linked_list_t::operator=(utec::linked_list_t &&other) noexcept {
+    auto current = head_;
+    while( current != nullptr ) {
+        auto next = current->next_;
+        delete current;
+        current = next;
+    }
+    head_ = nullptr;
+    size_ = 0;
+
+    size_ = move(other.size());
+    head_ = move(other.head_);
+    tail_ = move(other.tail_);
+    other.size_ = 0;
+    other.head_ = nullptr;
+    other.tail_ = nullptr;
+
+
     //to do
     return *this;
 }
@@ -65,7 +89,11 @@ utec::first::linked_list_t:: ~linked_list_t() {
         delete current;
         current = next;
     }
-    head_ = nullptr;
+
+    head_ = tail_ = nullptr;
+    size_ = 0;
+    assert(head_ == tail_);
+    assert(size_ == 0);
 }
 
 void utec::first::linked_list_t::push_front(int value) {
