@@ -12,7 +12,7 @@ utec::first::linked_list_t::linked_list_t(const utec::linked_list_t &other) {
     else {
         size_ = 1;
         size_t index = other.size_;
-        auto current = other.exacto(0);
+        auto current = other.head_;
         head_ = new node_t{current->value_, nullptr};
         tail_ = head_;
         while (--index) {
@@ -38,7 +38,7 @@ utec::linked_list_t &utec::first::linked_list_t::operator=(const utec::linked_li
         pop_front();
     size_ = 1;
     size_t index = other.size_;
-    auto current = other.exacto(0);
+    auto current = other.head_;
     head_ = new node_t{current->value_, nullptr};
     tail_ = head_;
     while (--index) {

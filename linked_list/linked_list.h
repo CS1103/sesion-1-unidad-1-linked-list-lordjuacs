@@ -16,7 +16,7 @@ namespace utec
     inline namespace first {
 
         class linked_list_t {
-        public:
+        private:
             node_t* head_ = nullptr;
             node_t* tail_ = nullptr;
             size_t size_ = 0;
